@@ -67,12 +67,6 @@ public class mainController {
     //로그인 화면
     @GetMapping("login")
     public String login(){
-        //Cookie cookie = new Cookie("")
-
-        System.out.println("로그인화면");
-
-        System.out.println("현재 가지고 있는 쿠키 : ");
-
         return "login";
     }
 
@@ -113,7 +107,7 @@ public class mainController {
             userService.insertLoginReport(user_id);
 
             //쿠키 생성
-            Cookie login_user = new Cookie("LOGIN_USER", user_id);
+            Cookie login_user = new Cookie(user_id, user_id);
             response.addCookie(login_user);
 
             model.addAttribute("LOGIN_USER", user_id);
@@ -158,5 +152,21 @@ public class mainController {
             System.out.println("로그인 안됨");
             return "login";
         }
+    }
+
+    //로그아웃 처리
+    @ResponseBody
+    @RequestMapping(value="logout", method = {RequestMethod.POST})
+    public boolean logout(HttpServletRequest request, HttpServletResponse response){
+        boolean result = false;
+        String myCookie = request.getParameter(request.getParameter("myCookie"));
+        System.out.println("받은 쿠키 : " + myCookie);
+
+        //쿠키 삭제
+        Cookie cookie_delete = new Cookie(myCookie, null);
+        cookie_delete.setMaxAge(0);
+        response.addCookie(cookie_delete);
+
+        return result;
     }
 }

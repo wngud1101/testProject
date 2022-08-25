@@ -65,10 +65,23 @@ $(document).ready(function() {
 
     //로그아웃 버튼 클릭 시
     $('#btn_logout').click(function() {
+        const myCookie = $('#LOGIN_USER').val();
 
         //쿠키 가져오기
-        var myCookie = $('#LOGIN_USER').val();
-
-        window.location.href = 'login?myCookie='+myCookie;
+        $.ajax({
+            type : "POST",
+            url : "logout",
+            data : {"myCookie" : myCookie},
+            dataType : "json",
+            async: false,
+            success : function(data) {
+                if (data == "true") {
+                    window.location.href = 'login';
+                }
+            },
+            error : function(request, status, error) {
+                alert("code:" + request.status + "\n" + "error:" + error);
+            }
+        }) //end ajax
     });
 }); // end ready
