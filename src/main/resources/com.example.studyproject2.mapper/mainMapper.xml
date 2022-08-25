@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.studyproject2.mapper.mainMapper">
+<mapper namespace="com.example.studyproject2.mapper.MainMapper">
     <!-- 회원가입 -->
     <insert id="insertSignUp">
         insert into client values('${user_id}', ${user_pwd})
@@ -13,12 +13,12 @@
     </select>
 
     <!-- 로그인 시 가입자 확인-->
-    <select id="loginCheck" resultType="com.example.studyproject2.userVO.userVO">
+    <select id="loginCheck" resultType="com.example.studyproject2.userVO.UserVO">
         select * from client where user_id = '${user_id}'
     </select>
 
     <!-- 로그인 횟수 -->
-    <select id="selectLoginCount" resultType="com.example.studyproject2.userVO.userVO">
+    <select id="selectLoginCount" resultType="com.example.studyproject2.userVO.UserVO">
         select login_count from login_report where user_id = '${user_id}' order by login_count desc limit 1
     </select>
 
@@ -36,7 +36,7 @@
     </insert>
 
     <!-- 로그인 기록 가져오기 -->
-    <select id="selectLoginReport" resultType="com.example.studyproject2.userVO.userVO">
+    <select id="selectLoginReport" resultType="com.example.studyproject2.userVO.UserVO">
         select login_time from login_report where user_id = '${user_id}' order by login_time desc limit 1
     </select>
 </mapper>

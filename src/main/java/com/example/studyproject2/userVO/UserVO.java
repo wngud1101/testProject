@@ -1,6 +1,6 @@
 package com.example.studyproject2.userVO;
 
-public class userVO {
+public class UserVO {
     private String user_id;
     private String user_pwd;
 
@@ -38,15 +38,5 @@ public class userVO {
 
     public void setUser_pwd(String user_pwd) {
         this.user_pwd = user_pwd;
-    }
-
-    @Override
-    public String toString() {
-        return "userVO{" +
-                "user_id='" + user_id + '\'' +
-                ", user_pwd='" + user_pwd + '\'' +
-                ", login_time='" + login_time + '\'' +
-                ", login_count='" + login_count + '\'' +
-                '}';
     }
 }

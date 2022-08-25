@@ -1,6 +1,6 @@
 package com.example.studyproject2;
 
-import com.example.studyproject2.mapper.mainMapper;
+import com.example.studyproject2.mapper.MainMapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class StudyProject2Application {
 
     @Autowired
-    mainMapper mainMapper;
+    MainMapper mainMapper;
 
     public static void main(String[] args) {
         SpringApplication.run(StudyProject2Application.class, args);
