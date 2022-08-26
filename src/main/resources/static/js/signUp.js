@@ -45,7 +45,7 @@ $(document).ready(function() {
             $.ajax({
                 type : "POST",
                 url : "id-check",
-                data : {"user_id" : user_id},
+                data : {"userId" : user_id},
                 dataType : "json",
                 success : function(data) {
                     console.log(data);

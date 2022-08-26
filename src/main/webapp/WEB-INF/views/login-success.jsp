@@ -16,16 +16,16 @@
 <body>
     <h3><input type="button" id="btn_login_page" value="로그인 화면으로 돌아가기" /></h3>
 
-    <c:if test="${login_report eq false}">
+    <c:if test="${loginReport eq false}">
         <p>첫 로그인입니다.</p>
     </c:if>
 
-    <c:if test="${login_report ne false}">
-        <p>마지막 로그인 시간 : <c:out value="${login_time}" /></p>
+    <c:if test="${loginReport ne false}">
+        <p>마지막 로그인 시간 : <c:out value="${loginTime}" /></p>
     </c:if>
 
-    <c:if test="${login_count >= 5 }">
-        <p>로그인 횟수 : ${login_count}</p>
+    <c:if test="${loginCount >= 5 }">
+        <p>로그인 횟수 : ${loginCount}</p>
     </c:if>
 
     <input type="hidden" id="LOGIN_USER" value="${LOGIN_USER}"/>

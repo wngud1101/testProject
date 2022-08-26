@@ -1,42 +1,42 @@
 package com.example.studyproject2.userVO;
 
 public class UserVO {
-    private String user_id;
-    private String user_pwd;
+    private String userId;
+    private String userPwd;
 
-    private String login_time;
+    private String loginTime;
 
-    private int login_count;
+    private int loginCount;
 
-    public int getLogin_count() {
-        return login_count;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setLogin_count(int login_count) {
-        this.login_count = login_count;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getLogin_time() {
-        return login_time;
+    public String getUserPwd() {
+        return userPwd;
     }
 
-    public void setLogin_time(String login_time) {
-        this.login_time = login_time;
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getLoginTime() {
+        return loginTime;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setLoginTime(String loginTime) {
+        this.loginTime = loginTime;
     }
 
-    public String getUser_pwd() {
-        return user_pwd;
+    public int getLoginCount() {
+        return loginCount;
     }
 
-    public void setUser_pwd(String user_pwd) {
-        this.user_pwd = user_pwd;
+    public void setLoginCount(int loginCount) {
+        this.loginCount = loginCount;
     }
 }

@@ -7,11 +7,11 @@ import java.util.List;
 public interface UserService {
     public boolean signUp(UserVO userVO);
 
-    public boolean id_check(String user_id);
+    public boolean idCheck(String userID);
 
-    public boolean loginCheck(String user_id, String user_pwd);
+    public boolean loginCheck(String userID, String userPwd);
 
-    public void insertLoginReport(String user_id);
+    public void insertLoginReport(String userID);
 
-    public UserVO selectLoginReport(String user_id);
+    public UserVO selectLoginReport(String userID);
 }

@@ -9,15 +9,13 @@ import java.util.List;
 public interface MainMapper {
     int insertSignUp(UserVO userVO);
 
-    UserVO loginCheck(String user_id);
+    UserVO loginCheck(String userId);
 
-    boolean id_check(String user_id);
+    boolean idCheck(String userId);
 
-    void insertLoginReport(String user_id);
+    void insertLoginReport(String userId);
 
-    UserVO selectLoginReport(String user_id);
-
-//    UserVO selectLoginCount(String user_id);
+    UserVO selectLoginReport(String userId);
 
     void updateLoginCount(UserVO userVO);
 }

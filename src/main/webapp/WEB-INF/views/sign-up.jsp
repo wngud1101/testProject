@@ -18,9 +18,9 @@
     회원가입하기
     <div>
         <form name="signUp">
-            <p><input type="text" id="user_id" name="user_id" placeholder="아이디 입력"/>
+            <p><input type="text" id="user_id" name="userId" placeholder="아이디 입력"/>
                 <input type="button" id="btn_idCheck" value="중복확인" /></p>
-            <p><input type="text" id="user_pwd" name="user_pwd" placeholder="비밀번호 입력"/></p>
+            <p><input type="text" id="user_pwd" name="userPwd" placeholder="비밀번호 입력"/></p>
             <input type="button" id="btn_signUp" value="회원가입하기"/>
         </form>
     </div>

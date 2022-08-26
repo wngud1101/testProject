@@ -4,27 +4,27 @@
 <mapper namespace="com.example.studyproject2.mapper.MainMapper">
     <!-- 회원가입 -->
     <insert id="insertSignUp">
-        insert into client values('${user_id}', ${user_pwd})
+        insert into client values('#{userId}', ${userPwd})
     </insert>
 
     <!-- ID 중복확인-->
-    <select id="id_check" resultType="boolean">
-        select EXISTS (select * from client where user_id= '${user_id}')
+    <select id="idCheck" resultType="boolean">
+        select EXISTS (select * from client where user_id= '#{userId}')
     </select>
 
     <!-- 로그인 시 가입자 확인-->
     <select id="loginCheck" resultType="com.example.studyproject2.userVO.UserVO">
-        select * from client where user_id = '${user_id}'
+        select * from client where user_id = '#{userId}'
     </select>
 
     <!-- 로그인 기록 저장-->
     <insert id="insertLoginReport">
-        insert into login_report values('${user_id}', current_timestamp)
+        insert into login_report values('#{userId}', current_timestamp)
     </insert>
 
     <!-- 로그인 기록(시간, 횟수) 가져오기 -->
     <select id="selectLoginReport" resultType="com.example.studyproject2.userVO.UserVO">
-        select login_time, login_count from login_report where user_id = '${user_id}' order by login_count desc limit 1
+        select login_time, login_count from login_report where user_id = '#{userId}' order by login_count desc limit 1
     </select>
 
     <!-- 로그인 횟수 증가 -->
@@ -32,6 +32,6 @@
         update login_report set login_count = ${login_count}
         where login_count in
               (select login_count from login_report
-                                  where user_id = '${user_id}' order by login_count desc limit 1)
+                                  where user_id = '#{userId}' order by login_count desc limit 1)
     </update>
 </mapper>

@@ -15,9 +15,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean signUp(UserVO userVO) {
         boolean result = true;
-        int db_result = mainMapper.insertSignUp(userVO);
+        int dbResult = mainMapper.insertSignUp(userVO);
 
-        if(db_result == 1){
+        if(dbResult == 1){
             result = true;
         }
 
@@ -25,9 +25,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean id_check(String user_id) {
+    public boolean idCheck(String userId) {
         boolean result = false;
-        boolean dbResult = mainMapper.id_check(user_id);
+        boolean dbResult = mainMapper.id_check(userId);
 
         if(dbResult == true){
             result = true;
@@ -36,38 +36,38 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean loginCheck(String user_id, String user_pwd) {
+    public boolean loginCheck(String userId, String userPwd) {
         boolean result = false;
-        UserVO dbResult = mainMapper.loginCheck(user_id);
+        UserVO dbResult = mainMapper.loginCheck(userId);
 
-        if(dbResult.getUser_id().equals(user_id) && dbResult.getUser_pwd().equals((user_pwd))){
+        if(dbResult.getUserId().equals(userId) && dbResult.getUserPwd().equals((userPwd))){
             result = true;
         }
         return result;
     }
 
     @Override
-    public void insertLoginReport(String user_id) {
-        mainMapper.insertLoginReport(user_id);
+    public void insertLoginReport(String userId) {
+        mainMapper.insertLoginReport(userId);
     }
 
     @Override
-    public UserVO selectLoginReport(String user_id) {
-        UserVO login_report = mainMapper.selectLoginReport(user_id);
-        int login_count = 0;
+    public UserVO selectLoginReport(String userId) {
+        UserVO loginReport = mainMapper.selectLoginReport(userId);
+        int loginCount = 0;
 
-        if(login_report.getLogin_count() == 0){ //첫 로그인일 경우
-            login_count = 1;
+        if(loginReport.getLoginCount() == 0){ //첫 로그인일 경우
+            loginCount = 1;
         }else { //첫 로그인이 아닐 경우
-            login_count = login_report.getLogin_count();
-            login_count +=1 ;
+            loginCount = loginReport.getLoginCount();
+            loginCount +=1 ;
         }
 
-        login_report.setLogin_count(login_count); //설정된 로그인횟수(login_count)를 vo에 저장
-        login_report.setUser_id(user_id);
+        loginReport.setLoginCount(loginCount); //설정된 로그인횟수(login_count)를 vo에 저장
+        loginReport.setUserId(userId);
 
-        mainMapper.updateLoginCount(login_report);
+        mainMapper.updateLoginCount(loginReport);
 
-        return login_report;
+        return loginReport;
     }
 }
