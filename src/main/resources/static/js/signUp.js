@@ -15,7 +15,7 @@ $(document).ready(function() {
 
             $.ajax({
                 type : "POST",
-                url : "signUp_check",
+                url : "sign-up-check",
                 data : signUp_form,
                 dataType : "json",
                 async: false,
@@ -44,8 +44,8 @@ $(document).ready(function() {
             console.log('테스트');
             $.ajax({
                 type : "POST",
-                url : "idCheck",
-                data : {"user_id" : user_id},
+                url : "id-check",
+                data : {"userId" : user_id},
                 dataType : "json",
                 success : function(data) {
                     console.log(data);
