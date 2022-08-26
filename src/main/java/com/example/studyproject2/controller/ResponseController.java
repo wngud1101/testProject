@@ -25,7 +25,7 @@ public class ResponseController {
     //아이디 중복확인
     @PostMapping("id-check")
     public boolean idCheck(@RequestParam("userId")String userId){
-        boolean dbResult = userService.idCheck(userId);
+        boolean dbResult = userService.isIdCheck(userId);
 
         return dbResult;
     }
@@ -39,7 +39,7 @@ public class ResponseController {
         userVO.setUserId(userId);
         userVO.setUserPwd(userPwd);
 
-        boolean dbResult = userService.signUp(userVO);
+        boolean dbResult = userService.findSignUp(userVO);
 
         return dbResult;
     }
@@ -51,7 +51,7 @@ public class ResponseController {
         String userId = request.getParameter("userId");
         String userPwd = request.getParameter("userPwd");
 
-        boolean dbResult = userService.loginCheck(userId, userPwd);
+        boolean dbResult = userService.findLoginCheck(userId, userPwd);
 
         if(dbResult == true){
             //쿠키 생성
@@ -68,9 +68,9 @@ public class ResponseController {
     public boolean logout(HttpServletResponse response){
         boolean result = true;
         //쿠키 삭제
-        Cookie cookie_delete = new Cookie(COOKIE_NAME, null);
-        cookie_delete.setMaxAge(0);
-        response.addCookie(cookie_delete);
+        Cookie cookieDelete = new Cookie(COOKIE_NAME, null);
+        cookieDelete.setMaxAge(0);
+        response.addCookie(cookieDelete);
 
         return result;
     }

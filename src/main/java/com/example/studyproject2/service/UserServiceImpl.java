@@ -13,9 +13,9 @@ public class UserServiceImpl implements UserService {
     private MainMapper mainMapper;
 
     @Override
-    public boolean signUp(UserVO userVO) {
+    public boolean findSignUp(UserVO userVO) {
         boolean result = true;
-        int dbResult = mainMapper.insertSignUp(userVO);
+        int dbResult = mainMapper.inputSignUp(userVO);
 
         if(dbResult == 1){
             result = true;
@@ -25,9 +25,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean idCheck(String userId) {
+    public boolean isIdCheck(String userId) {
         boolean result = false;
-        boolean dbResult = mainMapper.id_check(userId);
+        boolean dbResult = mainMapper.isIdCheck(userId);
 
         if(dbResult == true){
             result = true;
@@ -36,9 +36,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean loginCheck(String userId, String userPwd) {
+    public boolean findLoginCheck(String userId, String userPwd) {
         boolean result = false;
-        UserVO dbResult = mainMapper.loginCheck(userId);
+        UserVO dbResult = mainMapper.findLoginCheck(userId);
 
         if(dbResult.getUserId().equals(userId) && dbResult.getUserPwd().equals((userPwd))){
             result = true;
@@ -47,13 +47,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void insertLoginReport(String userId) {
-        mainMapper.insertLoginReport(userId);
+    public void inputLoginReport(String userId) {
+        mainMapper.inputLoginReport(userId);
     }
 
     @Override
-    public UserVO selectLoginReport(String userId) {
-        UserVO loginReport = mainMapper.selectLoginReport(userId);
+    public UserVO findLoginReport(String userId) {
+        UserVO loginReport = mainMapper.findLoginReport(userId);
         int loginCount = 0;
 
         if(loginReport.getLoginCount() == 0){ //첫 로그인일 경우
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
         loginReport.setLoginCount(loginCount); //설정된 로그인횟수(login_count)를 vo에 저장
         loginReport.setUserId(userId);
 
-        mainMapper.updateLoginCount(loginReport);
+        mainMapper.modifyLoginCount(loginReport);
 
         return loginReport;
     }

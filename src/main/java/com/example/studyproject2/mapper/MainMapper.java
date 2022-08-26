@@ -7,15 +7,15 @@ import java.util.List;
 
 @Mapper
 public interface MainMapper {
-    int insertSignUp(UserVO userVO);
+    int inputSignUp(UserVO userVO);
 
-    UserVO loginCheck(String userId);
+    UserVO findLoginCheck(String userId);
 
-    boolean idCheck(String userId);
+    boolean isIdCheck(String userId);
 
-    void insertLoginReport(String userId);
+    void inputLoginReport(String userId);
 
-    UserVO selectLoginReport(String userId);
+    UserVO findLoginReport(String userId);
 
-    void updateLoginCount(UserVO userVO);
+    void modifyLoginCount(UserVO userVO);
 }

@@ -48,10 +48,10 @@ public class MainController {
 //        }
 
         //로그인 성공시 현재 시각 저장
-        userService.insertLoginReport(userId);
+        userService.inputLoginReport(userId);
 
         //로그인 시간 및 횟수 확인
-        UserVO loginReport = userService.selectLoginReport(userId);
+        UserVO loginReport = userService.findLoginReport(userId);
 
         if(loginReport.getLoginCount() > 1){ //첫 로그인이 아닐 경우
             loginTimeResult = true;

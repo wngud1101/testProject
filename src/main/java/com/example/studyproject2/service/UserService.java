@@ -5,13 +5,13 @@ import com.example.studyproject2.userVO.UserVO;
 import java.util.List;
 
 public interface UserService {
-    public boolean signUp(UserVO userVO);
+    public boolean findSignUp(UserVO userVO);
 
-    public boolean idCheck(String userID);
+    public boolean isIdCheck(String userID);
 
-    public boolean loginCheck(String userID, String userPwd);
+    public boolean findLoginCheck(String userID, String userPwd);
 
-    public void insertLoginReport(String userID);
+    public void inputLoginReport(String userID);
 
-    public UserVO selectLoginReport(String userID);
+    public UserVO findLoginReport(String userID);
 }
