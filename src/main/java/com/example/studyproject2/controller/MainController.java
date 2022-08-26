@@ -86,7 +86,6 @@ public class MainController {
         boolean login_time_result = false;
 
         String my_cookie = COOKIE_NAME.getValue();
-        System.out.println("현재 " + my_cookie);
 
         if(my_cookie == null || user_id == null){
             return "login";
