@@ -14,8 +14,4 @@ public interface UserService {
     public void insertLoginReport(String user_id);
 
     public UserVO selectLoginReport(String user_id);
-
-    public UserVO selectLoginCount(String user_id);
-
-    public void updateLoginCount(UserVO userVO);
 }

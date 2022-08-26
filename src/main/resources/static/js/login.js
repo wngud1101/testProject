@@ -17,13 +17,13 @@ $(document).ready(function() {
             }else {
                 $.ajax({
                     type : "POST",
-                    url : "loginTest",
+                    url : "login-test",
                     data : login_form,
                     dataType : "text",
                     async: false,
                     success : function(data) {
                         if (data == "true") {
-                            window.location.href = 'loginSuccess?user_id='+user_id;
+                            window.location.href = 'login-success?user_id='+user_id;
                         }else {
                             alert('아이디나 비밀번호를 확인해주세요');
                         }
@@ -38,7 +38,7 @@ $(document).ready(function() {
 
     //회원가입 버튼 클릭 시
     $('#signUp').click(function() {
-        window.location.href = 'signUp';
+        window.location.href = 'sign-up';
     });
 
     //모달 클릭 이벤트(open)
@@ -65,23 +65,23 @@ $(document).ready(function() {
 
     //로그아웃 버튼 클릭 시
     $('#btn_logout').click(function() {
-        const myCookie = $('#LOGIN_USER').val();
-
         //쿠키 가져오기
         $.ajax({
             type : "POST",
             url : "logout",
-            data : {"myCookie" : myCookie},
             dataType : "json",
             async: false,
             success : function(data) {
-                if (data == "true") {
-                    window.location.href = 'login';
-                }
+                window.location.href = 'login';
             },
             error : function(request, status, error) {
                 alert("code:" + request.status + "\n" + "error:" + error);
             }
         }) //end ajax
+    });
+
+    //로그인 화면으로 돌아가기
+    $('#btn_login_page').click(function() {
+        window.location.href = 'login';
     });
 }); // end ready

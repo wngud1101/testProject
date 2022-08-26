@@ -14,6 +14,8 @@
 
 </head>
 <body>
+    <h3><input type="button" id="btn_login_page" value="로그인 화면으로 돌아가기" /></h3>
+
     <c:if test="${login_report eq false}">
         <p>첫 로그인입니다.</p>
     </c:if>

@@ -53,16 +53,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserVO selectLoginReport(String user_id) {
-        return mainMapper.selectLoginReport(user_id);
-    }
+        UserVO login_report = mainMapper.selectLoginReport(user_id);
+        int login_count = 0;
 
-    @Override
-    public UserVO selectLoginCount(String user_id) {
-        return mainMapper.selectLoginCount(user_id);
-    }
+        if(login_report.getLogin_count() == 0){ //첫 로그인일 경우
+            login_count = 1;
+        }else { //첫 로그인이 아닐 경우
+            login_count = login_report.getLogin_count();
+            login_count +=1 ;
+        }
 
-    @Override
-    public void updateLoginCount(UserVO userVO) {
-        mainMapper.updateLoginCount(userVO);
+        login_report.setLogin_count(login_count); //설정된 로그인횟수(login_count)를 vo에 저장
+        login_report.setUser_id(user_id);
+
+        mainMapper.updateLoginCount(login_report);
+
+        return login_report;
     }
 }

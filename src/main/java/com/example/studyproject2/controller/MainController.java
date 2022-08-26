@@ -11,24 +11,26 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MainController {
-    //private final String COOKIE_NAME = new Cookie("LOGIN_USER");
+    private final Cookie COOKIE_NAME = new Cookie("LOGIN_USER", null);
 
     @Autowired
     private UserService userService;
 
     //회원가입 화면
-    @GetMapping("signUp")
+    @GetMapping("sign-up")
     public String signUp(){
-        return "signUp";
+        return "sign-up";
     }
 
     //아이디 중복 확인
     @ResponseBody
-    @PostMapping("idCheck")
+    @PostMapping("id-check")
     public boolean idCheck(@RequestParam("user_id")String user_id){
         boolean dbResult = userService.id_check(user_id);
 
@@ -37,7 +39,7 @@ public class MainController {
 
     //회원가입 정보 DB에 넣는 메서드
     @ResponseBody
-    @PostMapping("signUp_check")
+    @PostMapping("sign-up-check")
     public boolean signUp_check(@RequestParam("user_id")String user_id, @RequestParam("user_pwd")String user_pwd){
         UserVO userVO = new UserVO();
 
@@ -55,74 +57,66 @@ public class MainController {
         return "login";
     }
 
-    //로그인 id, pwd 확인
+    //로그인 id, pwd 비교
     @ResponseBody
-    @PostMapping("loginTest")
-    public boolean loginTest(HttpServletRequest request){
+    @PostMapping("login-test")
+    public boolean loginTest(HttpServletRequest request, HttpServletResponse response, Model model){
         String user_id = request.getParameter("user_id");
         String user_pwd = request.getParameter("user_pwd");
 
         boolean dbResult = userService.loginCheck(user_id, user_pwd);
 
+        if(dbResult == true){
+            //쿠키 생성
+            Cookie login_user = new Cookie("LOGIN_USER", user_id);
+            response.addCookie(login_user);
+        }
+
+        COOKIE_NAME.setValue(user_id);
+        model.addAttribute("LOGIN_USER", user_id);      //쿠키 생성
+
         return dbResult;
     }
 
     //로그인 완료 화면
-    @GetMapping("loginSuccess")
-    public String loginSuccess(HttpServletRequest request, HttpServletResponse response, Model model){
+    @GetMapping("login-success")
+    public String loginSuccess(HttpServletRequest request, Model model){
+        UserVO userVO = new UserVO();
         String user_id = request.getParameter("user_id");
+        boolean login_time_result = false;
 
-        //로그인 안되어 있으면 로그인 페이지로 이동
-        if(user_id != null) {
+        String my_cookie = COOKIE_NAME.getValue();
+        System.out.println("현재 " + my_cookie);
+
+        if(my_cookie == null || user_id == null){
             return "login";
         }
-        //로그인 성공 시 유저와 로그인 시각 기록
+
+        //로그인 성공시 현재 시각 저장
         userService.insertLoginReport(user_id);
 
-        //쿠키 생성
-        Cookie login_user = new Cookie(user_id, user_id);
-        response.addCookie(login_user);
+        //로그인 시간 및 횟수 확인
+        UserVO login_report = userService.selectLoginReport(user_id);
 
-        //마지막 로그인 시간 확인
-        UserVO login_time = userService.selectLoginReport(user_id);
-        boolean login_time_result = false;
-        UserVO userVO = new UserVO();
-
-        //로그인 횟수 확인
-        UserVO login_db_count = userService.selectLoginCount(user_id);
-        int login_count = 0;
-
-        if(login_db_count.getLogin_count() == 0){ //방문 횟수 0일 경우
-            login_count = 1;
-            model.addAttribute("login_report", login_time_result);
-        }else {
-            login_count = login_db_count.getLogin_count();
-            login_count +=1 ;
+        if(login_report.getLogin_count() > 1){ //첫 로그인이 아닐 경우
             login_time_result = true;
-
-            model.addAttribute("login_report",login_time_result);
-            model.addAttribute("login_time", login_time.getLogin_time());
+            model.addAttribute("login_time", login_report.getLogin_time());
         }
 
-        userVO.setUser_id(user_id);
-        userVO.setLogin_count(login_count);
-        userService.updateLoginCount(userVO);
+        model.addAttribute("LOGIN_USER", user_id); //로그인 완료 시 아이디 표시
+        model.addAttribute("login_report",login_time_result); //첫 로그인인지 아닌지 표시
+        model.addAttribute("login_count", login_report.getLogin_count()); //view에 로그인 횟수 저장
 
-        model.addAttribute("LOGIN_USER", user_id);      //쿠키 생성
-        model.addAttribute("login_count", login_count); //view에 로그인 횟수 저장
-
-        return "loginSuccess";
+        return "login-success";
     }
 
     //로그아웃 처리
     @ResponseBody
     @PostMapping("logout")
-    public boolean logout(HttpServletRequest request, HttpServletResponse response){
-        boolean result = false;
-        String myCookie = request.getParameter(request.getParameter("myCookie"));
-
+    public boolean logout(HttpServletResponse response){
+        boolean result = true;
         //쿠키 삭제
-        Cookie cookie_delete = new Cookie(myCookie, null);
+        Cookie cookie_delete = COOKIE_NAME;
         cookie_delete.setMaxAge(0);
         response.addCookie(cookie_delete);
 

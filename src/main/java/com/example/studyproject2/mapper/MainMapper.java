@@ -17,7 +17,7 @@ public interface MainMapper {
 
     UserVO selectLoginReport(String user_id);
 
-    UserVO selectLoginCount(String user_id);
+//    UserVO selectLoginCount(String user_id);
 
     void updateLoginCount(UserVO userVO);
 }
